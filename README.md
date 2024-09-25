@@ -1,2 +1,2 @@
 # cs-620
-CS 620 algorithms Benjamin Dean Marshall University 2024-fall
+CS 620 Benjamin Dean 2024-fall Marshall University class subject is algorithms
