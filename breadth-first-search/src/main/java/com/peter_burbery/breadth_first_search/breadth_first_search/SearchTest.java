@@ -13,43 +13,43 @@ public class SearchTest {
 		int n = 10; // Number of nodes (0 to 9)
 
 		// Define the adjacency matrix for the graph
-		boolean[][] adjacencyMatrix = new boolean[n][n];
+		int[][] adjacencyMatrix = new int[n][n];
 
-		adjacencyMatrix[0][1] = true;
-		adjacencyMatrix[1][0] = true;
+		adjacencyMatrix[0][1] = 1;
+		adjacencyMatrix[1][0] = 1;
 
-		adjacencyMatrix[0][3] = true;
-		adjacencyMatrix[3][0] = true;
+		adjacencyMatrix[0][3] = 1;
+		adjacencyMatrix[3][0] = 1;
 
-		adjacencyMatrix[1][2] = true;
-		adjacencyMatrix[2][1] = true;
+		adjacencyMatrix[1][2] = 1;
+		adjacencyMatrix[2][1] = 1;
 
-		adjacencyMatrix[1][4] = true;
-		adjacencyMatrix[4][1] = true;
+		adjacencyMatrix[1][4] = 1;
+		adjacencyMatrix[4][1] = 1;
 
-		adjacencyMatrix[1][6] = true;
-		adjacencyMatrix[6][1] = true;
+		adjacencyMatrix[1][6] = 1;
+		adjacencyMatrix[6][1] = 1;
 
-		adjacencyMatrix[1][7] = true;
-		adjacencyMatrix[7][1] = true;
+		adjacencyMatrix[1][7] = 1;
+		adjacencyMatrix[7][1] = 1;
 
-		adjacencyMatrix[2][3] = true;
-		adjacencyMatrix[3][2] = true;
+		adjacencyMatrix[2][3] = 1;
+		adjacencyMatrix[3][2] = 1;
 
-		adjacencyMatrix[2][8] = true;
-		adjacencyMatrix[8][2] = true;
+		adjacencyMatrix[2][8] = 1;
+		adjacencyMatrix[8][2] = 1;
 
-		adjacencyMatrix[2][9] = true;
-		adjacencyMatrix[9][2] = true;
+		adjacencyMatrix[2][9] = 1;
+		adjacencyMatrix[9][2] = 1;
 
-		adjacencyMatrix[4][5] = true;
-		adjacencyMatrix[5][4] = true;
+		adjacencyMatrix[4][5] = 1;
+		adjacencyMatrix[5][4] = 1;
 
-		adjacencyMatrix[4][6] = true;
-		adjacencyMatrix[6][4] = true;
+		adjacencyMatrix[4][6] = 1;
+		adjacencyMatrix[6][4] = 1;
 
-		adjacencyMatrix[4][7] = true;
-		adjacencyMatrix[7][4] = true;
+		adjacencyMatrix[4][7] = 1;
+		adjacencyMatrix[7][4] = 1;
 
 		// Create a Graph object with the adjacency matrix
 		Graph graph = new Graph(adjacencyMatrix);
