@@ -46,6 +46,11 @@
       <artifactId>mu-queue</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
+    <dependency>
+	    <groupId>com.example</groupId>
+	    <artifactId>postfix-evaluator</artifactId>
+	    <version>1.0-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 
   <build>
