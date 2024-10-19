@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntervalScheduling", "IntervalScheduling\IntervalScheduling.csproj", "{8777E41F-D094-431E-9838-F42DFA6B8ED9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntervalPartitioning", "IntervalPartitioning\IntervalPartitioning.csproj", "{F7F523C3-AD47-4FDF-89B9-0691034E7616}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulingToMinimizingMaximumLateness", "SchedulingToMinimizingMaximumLateness\SchedulingToMinimizingMaximumLateness.csproj", "{10E1C40D-37D8-4069-A7D4-DD9E82058FCC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8777E41F-D094-431E-9838-F42DFA6B8ED9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8777E41F-D094-431E-9838-F42DFA6B8ED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8777E41F-D094-431E-9838-F42DFA6B8ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8777E41F-D094-431E-9838-F42DFA6B8ED9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7F523C3-AD47-4FDF-89B9-0691034E7616}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7F523C3-AD47-4FDF-89B9-0691034E7616}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7F523C3-AD47-4FDF-89B9-0691034E7616}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7F523C3-AD47-4FDF-89B9-0691034E7616}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10E1C40D-37D8-4069-A7D4-DD9E82058FCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10E1C40D-37D8-4069-A7D4-DD9E82058FCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10E1C40D-37D8-4069-A7D4-DD9E82058FCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10E1C40D-37D8-4069-A7D4-DD9E82058FCC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0D04D070-33D7-4663-9A89-C00F5BFE887B}
+	EndGlobalSection
+EndGlobal
