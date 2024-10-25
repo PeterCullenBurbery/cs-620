@@ -13,20 +13,23 @@ public class GridGraphVisualizer {
 	private static final char GOAL = 'G';
 	private int rows;
 	private int cols;
-	private List<Node> nodes;
-	private int[][] adjacencyMatrix;
-	private boolean[] visited;
-	private Set<Edge> traversedEdges; // Use Edge class for traversed edges
-	private Random rand;
+	private List<Node> nodes; /* nodes in the graph*/
+	private int[][] adjacencyMatrix; /*store connections in adjacency matrix*/
+	private boolean[] visited; /* we need to know what we have and have not visited.*/
+	private Set<Edge> traversedEdges; /* Use Edge class for traversed edges*/
+	private Random rand;/*used for random maze generation*/
 
 	// Arrays for different stages of the maze
+	/*These character arrays are used to construct maze strings.*/
 	private char[][] gridGraphArray; // Original grid graph where everything is connected
-	private char[][] mazeArray; // Maze where only traversed edges are kept
-	private char[][] solveArray; // Solved maze with path and tried nodes
-	private char[][] transformedMazeArray; // Transformed maze with 'S', 'G', and '.' replacing 'E'
+	private char[][] mazeArray; // Maze where only traversed edges are kept. this is the maze.
+	private char[][] solveArray; // Solved maze with path and tried nodes. this is the solved maze.
+	/*you mainly want to use transformedMazeArray and transformedSolveArray, not mazeArray and solveArray because they don't have S and G and they still have E and they haven't replaced E with . yet, readable.*/
+	private char[][] transformedMazeArray; // Transformed maze with 'S', 'G', and '.' replacing 'E'. With this we replace E with . and add S at start and G at goal.
 	private char[][] transformedSolveArray; // Transformed solved maze
-	private char[][] forksArray;
+	private char[][] forksArray;/*this one is where we add F for forks*/
 	// Strings for different stages of the maze
+	/* the string equivalent of the character arrays above.*/
 	private String gridGraphString;
 	private String mazeString;
 	private String solveString;
@@ -37,9 +40,10 @@ public class GridGraphVisualizer {
 	private Node start;
 	private Node goal;
 	private List<Node> pathForks; // Intersection of forks and path nodes
-	private List<Node> path;
+	/*forks on the path*/
+	private List<Node> path;/*nodes on the path*/
 	private List<Edge> pathEdges; // List of Edge objects for the path
-	private List<Node> tried;
+	private List<Node> tried;/*nodes that were tried*/
 	private List<Edge> triedEdges; // List of Edge objects for tried edges
 	// Lists for transformed coordinates
 	private List<int[]> pathCoordinates; // List to store coordinates where 'P' will be placed
@@ -52,11 +56,16 @@ public class GridGraphVisualizer {
 	private List<Node> backtrackForkNodes; // List of nodes where backtracking occurred
 	private int correctMovesCount; // Counter for correct moves (P)
 	private int incorrectMovesCount; // Counter for incorrect moves (?)
+	/*
+	 * There is some duplication where incorrect forks and back track forks are kind of the same thing. There is some work to be with eliminating and removing that duplication/the duplication.
+	 * For now, I don't feel like doing that. I want to have what I have without breaking the existing code. so that it continues to work.
+	 */
 	// Property to store nodes that are part of the maze
 	private Set<Node> mazeNodes; // Use a set to avoid duplicates
 	private List<Node> forks; // Nodes that connect to more than 2 other nodes
 	// Constructor to initialize the grid graph, perform DFS, and solve the maze
-
+/*the constructor*/
+	/*the constructor has a lot and there is a lot of logic in the constructor.*/
 	public GridGraphVisualizer(int rows, int cols) {
 		this.backtrackForkNodes = new ArrayList<>();
 		this.backtrackForksCount = 0; // Initialize backtracking forks count
