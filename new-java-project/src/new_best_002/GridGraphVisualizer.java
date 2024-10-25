@@ -13,23 +13,28 @@ public class GridGraphVisualizer {
 	private static final char GOAL = 'G';
 	private int rows;
 	private int cols;
-	private List<Node> nodes; /* nodes in the graph*/
-	private int[][] adjacencyMatrix; /*store connections in adjacency matrix*/
-	private boolean[] visited; /* we need to know what we have and have not visited.*/
-	private Set<Edge> traversedEdges; /* Use Edge class for traversed edges*/
-	private Random rand;/*used for random maze generation*/
+	private List<Node> nodes; /* nodes in the graph */
+	private int[][] adjacencyMatrix; /* store connections in adjacency matrix */
+	private boolean[] visited; /* we need to know what we have and have not visited. */
+	private Set<Edge> traversedEdges; /* Use Edge class for traversed edges */
+	private Random rand;/* used for random maze generation */
 
 	// Arrays for different stages of the maze
-	/*These character arrays are used to construct maze strings.*/
+	/* These character arrays are used to construct maze strings. */
 	private char[][] gridGraphArray; // Original grid graph where everything is connected
 	private char[][] mazeArray; // Maze where only traversed edges are kept. this is the maze.
 	private char[][] solveArray; // Solved maze with path and tried nodes. this is the solved maze.
-	/*you mainly want to use transformedMazeArray and transformedSolveArray, not mazeArray and solveArray because they don't have S and G and they still have E and they haven't replaced E with . yet, readable.*/
-	private char[][] transformedMazeArray; // Transformed maze with 'S', 'G', and '.' replacing 'E'. With this we replace E with . and add S at start and G at goal.
+	/*
+	 * you mainly want to use transformedMazeArray and transformedSolveArray, not
+	 * mazeArray and solveArray because they don't have S and G and they still have
+	 * E and they haven't replaced E with . yet, readable.
+	 */
+	private char[][] transformedMazeArray; // Transformed maze with 'S', 'G', and '.' replacing 'E'. With this we
+											// replace E with . and add S at start and G at goal.
 	private char[][] transformedSolveArray; // Transformed solved maze
-	private char[][] forksArray;/*this one is where we add F for forks*/
+	private char[][] forksArray;/* this one is where we add F for forks */
 	// Strings for different stages of the maze
-	/* the string equivalent of the character arrays above.*/
+	/* the string equivalent of the character arrays above. */
 	private String gridGraphString;
 	private String mazeString;
 	private String solveString;
@@ -40,10 +45,10 @@ public class GridGraphVisualizer {
 	private Node start;
 	private Node goal;
 	private List<Node> pathForks; // Intersection of forks and path nodes
-	/*forks on the path*/
-	private List<Node> path;/*nodes on the path*/
+	/* forks on the path */
+	private List<Node> path;/* nodes on the path */
 	private List<Edge> pathEdges; // List of Edge objects for the path
-	private List<Node> tried;/*nodes that were tried*/
+	private List<Node> tried;/* nodes that were tried */
 	private List<Edge> triedEdges; // List of Edge objects for tried edges
 	// Lists for transformed coordinates
 	private List<int[]> pathCoordinates; // List to store coordinates where 'P' will be placed
@@ -57,15 +62,19 @@ public class GridGraphVisualizer {
 	private int correctMovesCount; // Counter for correct moves (P)
 	private int incorrectMovesCount; // Counter for incorrect moves (?)
 	/*
-	 * There is some duplication where incorrect forks and back track forks are kind of the same thing. There is some work to be with eliminating and removing that duplication/the duplication.
-	 * For now, I don't feel like doing that. I want to have what I have without breaking the existing code. so that it continues to work.
+	 * There is some duplication where incorrect forks and back track forks are kind
+	 * of the same thing. There is some work to be with eliminating and removing
+	 * that duplication/the duplication. For now, I don't feel like doing that. I
+	 * want to have what I have without breaking the existing code. so that it
+	 * continues to work.
 	 */
 	// Property to store nodes that are part of the maze
 	private Set<Node> mazeNodes; // Use a set to avoid duplicates
 	private List<Node> forks; // Nodes that connect to more than 2 other nodes
 	// Constructor to initialize the grid graph, perform DFS, and solve the maze
-/*the constructor*/
-	/*the constructor has a lot and there is a lot of logic in the constructor.*/
+	/* the constructor */
+	/* the constructor has a lot and there is a lot of logic in the constructor. */
+
 	public GridGraphVisualizer(int rows, int cols) {
 		this.backtrackForkNodes = new ArrayList<>();
 		this.backtrackForksCount = 0; // Initialize backtracking forks count
@@ -106,12 +115,23 @@ public class GridGraphVisualizer {
 		// Stage 2: Perform random DFS to create the maze and remove untraversed edges
 		randomDFS(0); // Randomized DFS starting from node 0
 		removeUntraversedEdges();
-
+		/*
+		 * we remove edges that we did not traverse with DFS. This is how we create a
+		 * maze.
+		 */
 //		this.mazeString = buildGridGraphString(); // Build the final maze string after edge removal
 		buildMazeArray(); // Build maze after edge removal
 		this.mazeString = arrayToString(mazeArray);
 		// Stage 3: Reset visited array before solving the maze
+		/*
+		 * You could have 2 visited arrays, one for generating the maze and one for
+		 * solving the maze. You would have maze construction or maze generation array
+		 * visited and maze traversal or maze solution array visited.
+		 */
 		Arrays.fill(visited, false);
+		/*
+		 * We solve the maze and then apply various analytics to the maze to find forks.
+		 */
 		// Stage 3: Solve the maze using ordered DFS (NESW)
 		solveMaze(start.getNodeNumber()); // Solve the maze from the start to goal
 		computeCoordinates();
@@ -172,6 +192,9 @@ public class GridGraphVisualizer {
 		return forksString; // Return the generated forksString
 	}
 
+	/*
+	 * I would like to make ChatGPT generate add some Javadoc for the functions.
+	 */
 	// Function to compute forks: nodes with more than two edges
 	private void computeForks() {
 		for (int nodeIndex = 0; nodeIndex < adjacencyMatrix.length; nodeIndex++) {
@@ -315,6 +338,10 @@ public class GridGraphVisualizer {
 		}
 	}
 
+	/*
+	 * Node has a property node number so there is some duplication between node
+	 * number and node index.
+	 */
 	// Function to get the node's index based on its row and column
 	private int nodeIndex(int row, int col) {
 		return row * cols + col;
@@ -331,9 +358,6 @@ public class GridGraphVisualizer {
 
 		// Get neighbors in NESW order based on node coordinates
 		List<Integer> neighbors = getOrderedNeighbors(node);
-		boolean potentialFork = (neighbors.size() > 1); // Detect potential forks
-		int wrongTurns = 0; // Count wrong turns at this node
-
 		for (int neighbor : neighbors) {
 			if (!visited[neighbor] && adjacencyMatrix[node][neighbor] == 1) {
 				Edge edge = new Edge(nodes.get(node), nodes.get(neighbor));
@@ -347,7 +371,6 @@ public class GridGraphVisualizer {
 					path.remove(nodes.get(neighbor));
 					triedEdges.add(edge);
 					pathEdges.remove(edge);
-					wrongTurns++; // Increment wrong turn count
 				}
 			}
 		}
@@ -404,43 +427,6 @@ public class GridGraphVisualizer {
 		}
 	}
 
-	// Function to build a string representation of the grid graph or maze
-	private String buildGridGraphString() {
-		StringBuilder sb = new StringBuilder();
-		for (int row = 0; row < 2 * rows - 1; row++) {
-			for (int col = 0; col < 2 * cols - 1; col++) {
-				// Determine if the current position represents a node or edge
-				if (row % 2 == 0 && col % 2 == 0) {
-					int nodeIndex = nodeIndex(row / 2, col / 2);
-					sb.append(NODE); // Append node
-				} else if (row % 2 == 0) {
-					// Horizontal edges between nodes
-					int leftNode = nodeIndex(row / 2, (col - 1) / 2);
-					int rightNode = nodeIndex(row / 2, (col + 1) / 2);
-					if (adjacencyMatrix[leftNode][rightNode] == 1) {
-						sb.append(EDGE); // Append edge
-					} else {
-						sb.append(WALL); // Append wall
-					}
-				} else if (col % 2 == 0) {
-					// Vertical edges between nodes
-					int topNode = nodeIndex((row - 1) / 2, col / 2);
-					int bottomNode = nodeIndex((row + 1) / 2, col / 2);
-					if (adjacencyMatrix[topNode][bottomNode] == 1) {
-						sb.append(EDGE); // Append edge
-					} else {
-						sb.append(WALL); // Append wall
-					}
-				} else {
-					// Walls between nodes and edges
-					sb.append(WALL);
-				}
-			}
-			sb.append("\n");
-		}
-		return sb.toString();
-	}
-
 	// Build the maze character array based on adjacency matrix logic
 	private void buildMazeArray() {
 		for (int row = 0; row < 2 * rows - 1; row++) {
@@ -474,6 +460,9 @@ public class GridGraphVisualizer {
 		}
 	}
 
+	/*
+	 * get methods/getters for strings and paths and properties
+	 */
 	// Getter for the grid graph string (before DFS)
 	public String getGridGraphString() {
 		return gridGraphString;
@@ -511,78 +500,6 @@ public class GridGraphVisualizer {
 				pathForks.add(node); // Only add nodes that are both in the path and forks
 			}
 		}
-	}
-
-	public static void main(String[] args) {
-//		// Create a 3x3 grid graph and solve the maze
-//		GridGraphVisualizer gridGraph3x3 = new GridGraphVisualizer(3, 3);
-//
-//		System.out.println("Initial Grid Graph:");
-////        System.out.println(gridGraph3x3.getGridGraphString());
-//
-//		System.out.println("Maze after DFS and edge removal:");
-//		System.out.println(gridGraph3x3.getMazeString());
-//
-//		System.out.println("Path from start to goal:");
-//		System.out.println(gridGraph3x3.getPath());
-//		System.out.println(gridGraph3x3.getPathEdges());
-//		System.out.println("Tried nodes:");
-//		System.out.println(gridGraph3x3.getTried());
-//		System.out.println(gridGraph3x3.getTriedEdges());
-//		System.out.println("Path coordinates:");
-//		for (int[] coord : gridGraph3x3.getPathCoordinates()) {
-//			System.out.println(Arrays.toString(coord));
-//		}
-//
-//		System.out.println("Tried coordinates:");
-//		for (int[] coord : gridGraph3x3.getTriedCoordinates()) {
-//			System.out.println(Arrays.toString(coord));
-//		}
-//		GridGraphVisualizer gridGraph3x3 = new GridGraphVisualizer(150,150/*3,3*/);
-//		GridGraphVisualizer gridGraph3x3 = new GridGraphVisualizer(30,30/*3,3*/);
-
-//		GridGraphVisualizer gridGraph3x3 = new GridGraphVisualizer(30,30/*3,3*/);
-//		GridGraphVisualizer gridGraph3x3 = new GridGraphVisualizer(20,20/*3,3*/);
-//		GridGraphVisualizer gridGraph3x3 = new GridGraphVisualizer(6,6/*3,3*/);
-//        System.out.println("Original Grid Graph (All Edges Present):");
-//        System.out.println(gridGraph3x3.getGridGraphString());
-		/* I will try to make the biggest maze that can fit onto the screen. */
-		GridGraphVisualizer gridGraph3x3 = new GridGraphVisualizer(27, 118/* 3,3 */);
-		System.out.println("Maze after DFS and Edge Removal:");
-
-		System.out.println(gridGraph3x3.getTransformedSolveString());
-/*		int count = 75;
-		for (int i = 0; i < count; i++) {
-			System.out.println(); // prints a new line
-		}
-		System.out.println("Correct forks--"+gridGraph3x3.getCorrectForks().size()+" Incorrect forks--"+gridGraph3x3.getIncorrectForks().size());
-//		System.out.println(gridGraph3x3.getCorrectForks().size());
-//		System.out.println("Incorrect forks--");
-//		System.out.println(gridGraph3x3.getIncorrectForks().size());
-		count = 1;
-		for (int i = 0; i < count; i++) {
-			System.out.println(); // prints a new line
-		}
-		System.out.println(gridGraph3x3.getTransformedMazeString());
-		*/
-//        System.out.println("Solved Maze:");
-
-//        System.out.println("The number of correct moves was "+gridGraph3x3.getCorrectMovesCount());
-//        System.out.println("The number of incorrect moves was "+gridGraph3x3.getIncorrectMovesCount());
-//        System.out.println("The number of incorrect forks was "+gridGraph3x3.getBacktrackForksCount());
-//        System.out.println("Nodes where backtracking occurred: " + gridGraph3x3.getBacktrackForkNodes());
-//        System.out.println(gridGraph3x3.getTriedEdges());
-//        System.out.println(gridGraph3x3.getForksString());
-//        System.out.println("forks--"+gridGraph3x3.getForks());
-//        System.out.println("path forks--"+gridGraph3x3.getPathForks());
-//        System.out.println(gridGraph3x3.getTried().toString());
-//        System.out.println("correct forks--"+gridGraph3x3.getCorrectForks());
-//        System.out.println("incorrect forks--"+gridGraph3x3.getIncorrectForks());
-//        
-//        gridGraph3x3.printNonZeroValuesInAdjacencyMatrix();
-//        System.out.println();
-//        gridGraph3x3.printNonZeroValuesForPathForks();
-
 	}
 
 	public List<Node> getAdjacentNodes(Node node) {
@@ -723,6 +640,9 @@ public class GridGraphVisualizer {
 		return new int[] { node.getRow() * 2, node.getCol() * 2 };
 	}
 
+	/*
+	 * I like there is Javadoc syntax.
+	 */
 	/**
 	 * @return the traversedEdges
 	 */
@@ -855,4 +775,5 @@ public class GridGraphVisualizer {
 	public List<Node> getIncorrectForks() {
 		return incorrectForks;
 	}
+	
 }
