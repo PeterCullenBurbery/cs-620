@@ -156,10 +156,10 @@ public class GridGraphVisualizer {
 
     public static void main(String[] args) {
         // Create a 3x3 grid graph and visualize it before DFS
-        GridGraphVisualizer gridGraph3x3 = new GridGraphVisualizer(5,5);
+        GridGraphVisualizer gridGraph3x3 = new GridGraphVisualizer(50,50);
         
         System.out.println("Grid Graph before DFS:");
-        gridGraph3x3.printGridGraph();  // Show grid graph before DFS
+        //gridGraph3x3.printGridGraph();  // Show grid graph before DFS
         
         // Start randomized DFS from node 0 (Node 1)
         gridGraph3x3.dfs(0);

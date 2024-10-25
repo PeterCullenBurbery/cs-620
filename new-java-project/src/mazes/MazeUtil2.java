@@ -283,7 +283,7 @@ public class MazeUtil2 {
 //        System.out.println();
 //        System.out.println(mazeUtil2.getMazeResult("C:\\Users\\peter\\git\\cs-620\\mazes\\mazes-without-dimensions\\maze-002.txt"));
 //        System.out.println();
-        System.out.println(mazeUtil2.getMazeResult("C:\\Users\\peter\\git\\cs-620\\mazes\\mazes-without-dimensions\\maze-003.txt"));
+        System.out.println(mazeUtil2.getMazeResult("C:\\Users\\peter\\git\\cs-620\\mazes\\mazes-007-mazes\\maze-005.txt"));
 //        System.out.println();
 //        System.out.println(mazeUtil2.getMazeResult("C:\\Users\\peter\\git\\cs-620\\mazes\\mazes-without-dimensions\\maze-004.txt"));
 //        System.out.println();

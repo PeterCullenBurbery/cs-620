@@ -159,6 +159,7 @@ public class MazeFun {
  // Function to process the post-DFS graph (replace 'E' with '.', set 'S' and 'G')
  // Function to process the post-DFS graph (replace 'E' with '.', set 'S' and 'G')
  // Function to process the post-DFS graph (replace 'E' with '.', set 'S' and 'G')
+ // Function to process the post-DFS graph without replacing 'E'
     public String processPostDfsGraph() {
         // Split the postDfsGraph into lines (each representing a row of the grid)
         String[] lines = postDfsGraph.split("\n");
@@ -166,10 +167,9 @@ public class MazeFun {
         // Use StringBuilder to construct the new graph
         StringBuilder sb = new StringBuilder();
 
-        // Replace 'E' with '.' in each line
-        for (int row = 0; row < lines.length; row++) {
-            String line = lines[row].replace(EDGE, NODE); // Replace 'E' with '.'
-            sb.append(line).append("\n");
+        // Loop through each line, keeping 'E' intact
+        for (String line : lines) {
+            sb.append(line).append("\n");  // Keep the 'E' as is
         }
 
         // Now place 'S' in the bottom-left and 'G' in the top-right
@@ -190,7 +190,7 @@ public class MazeFun {
         sb.replace(0, sb.indexOf("\n"), firstLine); // Replace the first line
         sb.replace(sb.lastIndexOf("\n", sb.length() - 2) + 1, sb.length() - 1, lastLine); // Replace the last line
 
-        return sb.toString();
+        return sb.toString(); // Return the processed graph with 'S' and 'G'
     }
 
 

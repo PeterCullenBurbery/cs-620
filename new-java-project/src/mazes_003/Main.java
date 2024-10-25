@@ -3,7 +3,7 @@ package mazes_003;
 public class Main {
     public static void main(String[] args) {
         // Create a 20x30 grid graph and visualize it before and after DFS
-    	MazeFun gridGraph = new MazeFun(10,20);
+    	MazeFun gridGraph = new MazeFun(7,7);
 //        MazeFun gridGraph = new MazeFun(18,70);
 
 //        // Show the graph before DFS
